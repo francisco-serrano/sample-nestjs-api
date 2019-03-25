@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Delete, Get, Post, Put, UsePipes } from '@nestjs/common';
 import { PhotoService } from './photo.service';
-import { PhotoValidationPipe } from './photo.validation.pipe.service';
+import { PhotoValidationPipe } from './photo.validation.pipe';
 
 @Controller('photos')
 export class PhotoController {
