@@ -1,4 +1,4 @@
-export class CreateUpdatePhotoDto {
+export class PhotoDTO {
   readonly name: string;
   readonly description: string;
   readonly filename: string;
