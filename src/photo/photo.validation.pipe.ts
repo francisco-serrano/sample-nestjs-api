@@ -8,7 +8,7 @@ export class PhotoValidationPipe implements PipeTransform {
       description: value.description,
       filename: value.filename,
       views: Number(value.views),
-      isPublished: Boolean(value.isPublished),
+      published: Boolean(value.published),
     };
   }
 }

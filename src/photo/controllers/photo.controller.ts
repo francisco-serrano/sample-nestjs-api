@@ -1,6 +1,6 @@
 import { Body, Controller, Param, Delete, Get, Post, Put, UsePipes } from '@nestjs/common';
-import { PhotoService } from './photo.service';
-import { PhotoValidationPipe } from './photo.validation.pipe';
+import { PhotoService } from '../services/photo.service';
+import { PhotoValidationPipe } from '../photo.validation.pipe';
 
 @Controller('photos')
 export class PhotoController {
@@ -20,8 +20,6 @@ export class PhotoController {
   @Post()
   @UsePipes(new PhotoValidationPipe())
   async addPhoto(@Body() photo) {
-    console.log(photo);
-
     return await this.photoService.addPhoto(photo);
   }
 

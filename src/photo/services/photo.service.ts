@@ -1,8 +1,8 @@
 import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PhotoEntity } from './photo.entity';
+import { PhotoEntity } from '../entities/photo.entity';
 import { Repository } from 'typeorm';
-import { PhotoDTO } from './dto/PhotoDTO';
+import { PhotoDTO } from '../dto/PhotoDTO';
 
 @Injectable()
 export class PhotoService {
@@ -48,7 +48,7 @@ export class PhotoService {
     photo.description = photoDTO.description;
     photo.filename = photoDTO.filename;
     photo.views = photoDTO.views;
-    photo.isPublished = photoDTO.isPublished;
+    photo.published = photoDTO.published; 
 
     await this.photoRepository.save(photo);
 

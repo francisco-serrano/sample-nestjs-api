@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PhotoModule } from './photo/photo.module';
-import { PhotoController } from './photo/photo.controller';
-import { PhotoService } from './photo/photo.service';
+import { PhotoController } from './photo/controllers/photo.controller';
+import { PhotoService } from './photo/services/photo.service';
 
 @Module({
   imports: [

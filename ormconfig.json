@@ -1,12 +1,12 @@
 {
   "type": "mysql",
   "host": "localhost",
-  "port": 10000,
+  "port": 3306,
   "username": "root",
-  "password": "franciscoserrano",
+  "password": "root",
   "database": "db_test",
   "entities": [
-    "src/**/**.entity{.ts,.js}"
+    "src/photo/entities/photo.entity.ts"
   ],
   "synchronize": true
 }

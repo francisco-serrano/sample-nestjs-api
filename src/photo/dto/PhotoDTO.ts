@@ -3,5 +3,5 @@ export class PhotoDTO {
   readonly description: string;
   readonly filename: string;
   readonly views: number;
-  readonly isPublished: boolean;
+  readonly published: boolean;
 }

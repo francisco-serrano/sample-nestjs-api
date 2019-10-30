@@ -6,7 +6,9 @@ export class PhotoEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 500 })
+  @Column({
+    length: 255
+  })
   name: string;
 
   @Column('text')
@@ -18,6 +20,8 @@ export class PhotoEntity {
   @Column('int')
   views: number;
 
-  @Column()
-  isPublished: boolean;
+  @Column({
+    default: false
+  })
+  published: boolean;
 }
