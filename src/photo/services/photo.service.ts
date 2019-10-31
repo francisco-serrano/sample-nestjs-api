@@ -1,23 +1,25 @@
 import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PhotoEntity } from '../entities/photo.entity';
+import { Photo } from '../entities/photo.entity';
 import { Repository } from 'typeorm';
 import { PhotoDTO } from '../dto/PhotoDTO';
+import { PhotoAlbum } from '../entities/photoalbum.entity';
+import { PhotoAlbumService } from './photoalbum.service';
 
 @Injectable()
 export class PhotoService {
 
   constructor(
-    @InjectRepository(PhotoEntity)
-    private readonly photoRepository: Repository<PhotoEntity>,
-  ) {
-  }
+    @InjectRepository(Photo)
+    private readonly photoRepository: Repository<Photo>,
+    private photoAlbumService: PhotoAlbumService
+  ) {}
 
-  async getPhotos(): Promise<PhotoEntity[]> {
+  async getPhotos(): Promise<Photo[]> {
     return await this.photoRepository.find();
   }
 
-  async getPhoto(photoID): Promise<PhotoEntity> {
+  async getPhoto(photoID): Promise<Photo> {
     const id = Number(photoID);
 
     const photo = await this.photoRepository.findOne(id);
@@ -29,13 +31,29 @@ export class PhotoService {
     return photo;
   }
 
-  async addPhoto(photoDTO: PhotoDTO): Promise<PhotoEntity[]> {
-    await this.photoRepository.save(photoDTO);
+  async addPhoto(dto: PhotoDTO): Promise<Photo[]> {
+    const album = await this.photoAlbumService.getAlbum(dto.album_id);
 
-    return await this.photoRepository.find();
+    if (!album) {
+      throw new HttpException('Album does not exist!', 404);
+    }
+    
+    const photo = new Photo();
+    photo.name = dto.name;
+    photo.description = dto.description;
+    photo.filename = dto.filename;
+    photo.published = dto.published;
+    photo.views = dto.views;
+    photo.album = album;
+    
+    await this.photoRepository.save(photo);
+
+    const photos = await this.photoRepository.find();
+
+    return await photos;
   }
 
-  async updatePhoto(photoID, photoDTO: PhotoDTO): Promise<PhotoEntity[]> {
+  async updatePhoto(photoID, photoDTO: PhotoDTO): Promise<Photo[]> {
     const id = Number(photoID);
 
     const photo = await this.photoRepository.findOne(id);
@@ -55,7 +73,7 @@ export class PhotoService {
     return await this.photoRepository.find();
   }
 
-  async deletePhoto(photoID): Promise<PhotoEntity[]> {
+  async deletePhoto(photoID): Promise<Photo[]> {
     const id = Number(photoID);
 
     await this.photoRepository.delete(id);

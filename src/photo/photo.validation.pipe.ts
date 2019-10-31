@@ -9,6 +9,7 @@ export class PhotoValidationPipe implements PipeTransform {
       filename: value.filename,
       views: Number(value.views),
       published: Boolean(value.published),
+      album_id: Number(value.album_id)
     };
   }
 }

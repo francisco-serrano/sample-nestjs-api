@@ -6,7 +6,8 @@
   "password": "root",
   "database": "db_test",
   "entities": [
-    "src/photo/entities/photo.entity.ts"
+    "src/photo/entities/photo.entity.ts",
+    "src/photo/entities/photoalbum.entity.ts"
   ],
   "synchronize": true
 }
